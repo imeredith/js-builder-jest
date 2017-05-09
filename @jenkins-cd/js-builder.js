@@ -42,9 +42,17 @@ function install(builder) {
             process.env.JEST_JUNIT_OUTPUT = reportsPath;
         }
 
+        // measure coverage from all js/x files in source paths
+        var collectCoverageFrom = builder.paths.srcPaths.map(function (path) {
+            return path + '/**/*.{js,jsx}';
+        });
+                
+        logInfo('collectCoverageFrom: ' + collectCoverageFrom.join(', '));
+
         return runJest({
             config: {
                 collectCoverage: true,
+                collectCoverageFrom: collectCoverageFrom,
                 testMatch: testMatch,
                 testResultsProcessor: 'jest-junit'
             }
