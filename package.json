@@ -1,0 +1,28 @@
+{
+  "name": "@jenkins-cd/js-builder-jest",
+  "version": "0.0.1-SNAPSHOT-1",
+  "description": "Adds support for running tests with Jest via Jenkins js-builder",
+  "main": "dist/js/index.js",
+  "scripts": {
+    "build": "jjsbuilder",
+    "test": "jjsbuilder"
+  },
+  "author": "Cliff Meyers <cliff.meyers@gmail.com> (https://github.com/cliffmeyers)",
+  "license": "MIT",
+  "files": [
+    "@jenkins-cd",
+    "LICENSE",
+    "README.md"
+  ],
+  "devDependencies": {
+    "@jenkins-cd/js-builder": "0.0.55",
+    "@jenkins-cd/js-modules": "0.0.9"
+  },
+  "dependencies": {
+    "del": "2.2.2",
+    "gulp-jest": "1.0.0",
+    "jest-cli": "19.0.2",
+    "jest-junit": "1.5.1",
+    "minimist": "1.2.0"
+  }
+}
