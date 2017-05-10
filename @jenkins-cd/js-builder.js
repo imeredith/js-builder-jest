@@ -36,6 +36,8 @@ function install(builder) {
     }
 
     builder.defineTask('test', function () {
+        var collectCoverageFrom;
+
         logInfo('running js-builder-jest:test');
 
         if (!process.env.JEST_JUNIT_OUTPUT) {
@@ -43,10 +45,10 @@ function install(builder) {
         }
 
         // measure coverage from all js/x files in source paths
-        var collectCoverageFrom = builder.paths.srcPaths.map(function (path) {
+        collectCoverageFrom = builder.paths.srcPaths.map(function (path) {
             return path + '/**/*.{js,jsx}';
         });
-                
+
         logInfo('collectCoverageFrom: ' + collectCoverageFrom.join(', '));
 
         return runJest({
