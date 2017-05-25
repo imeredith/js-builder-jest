@@ -66,7 +66,6 @@ function install(builder) {
 
         return runJest({
             notify: true,
-            forceExit: true,
             config: {
                 testMatch: testMatch
             }
@@ -75,12 +74,19 @@ function install(builder) {
 
     builder.defineTask('test:debug', function () {
         logInfo('running js-builder-jest:test:debug');
-        logInfo('debug support is coming soon.');
+
+        return runJest({
+            runInBand: true,
+            config: {
+                testMatch: testMatch
+            },
+        });
     });
 
-    builder.defineTask('test:watch', function () {
+    builder.defineTask('test:watch', function (done) {
         logInfo('running js-builder-jest:test:watch');
         logInfo('watch is not supported. maybe later.');
+        done();
     });
 }
 
