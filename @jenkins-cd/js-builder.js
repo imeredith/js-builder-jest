@@ -5,8 +5,8 @@ var del = require('del');
 
 
 var testMatch = ['**/?(*-)(spec|test).js?(x)'];
-var coveragePath = 'coverage';
-var reportsPath = 'reports/junit.xml';
+var coveragePath = 'target/jest-coverage';
+var reportsPath = 'target/jest-reports/junit.xml';
 
 
 function install(builder) {
@@ -55,6 +55,7 @@ function install(builder) {
             config: {
                 collectCoverage: true,
                 collectCoverageFrom: collectCoverageFrom,
+                coverageDirectory: coveragePath,
                 testMatch: testMatch,
                 testResultsProcessor: 'jest-junit'
             }
@@ -79,7 +80,7 @@ function install(builder) {
             runInBand: true,
             config: {
                 testMatch: testMatch
-            },
+            }
         });
     });
 
