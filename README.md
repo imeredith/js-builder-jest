@@ -22,11 +22,11 @@ Run your tests with Jenkins JS Builder using the "Jest" test runner.
 
 # Defaults
 
-The default location for tests is the `test` folder. This can be overridden by calling `builder.tests(<new-path>` in the gulpfile.
+The default location for tests is the `test` folder. This can be overridden by calling `builder.tests(<new-path>)` in the gulpfile.
 
 The file names need to match the pattern `*-spec.js` or `*-test.js`; the `jsx` extension is also supported.
 
-# 'test' Task
+# "test" Task
 
 Run the tests and produces test and coverage reports.
 
@@ -35,7 +35,7 @@ You can limit the tests that are run via the `test` parameter. This is a pattern
 JUnit test reports are stored in `target/jest-reports/` and coverage reports in `target/jest-coverage/`.
 Note that coverage is only measured for .js and .jsx files in the source directories (default: `src`).
 
-# 'test:fast" Task
+# "test:fast" Task
 
 ```
 npm run test:fast
@@ -44,14 +44,14 @@ npm run test:fast
 Runs the tests but skips generation of reports and coverage. 
 This is good for local development.
 
-# 'test:debug' Task
+# "test:debu"' Task
 
 ```
 npm run test:debug
 ```
 
 Runs the tests in debug mode on default port 5858.
-Test execution will be paused until the debugger is attached and execution is resumed.
+Test execution will be paused until the debugger is attached, then execution is resumed.
 
 # Running specific tests
 
