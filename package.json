@@ -1,6 +1,6 @@
 {
   "name": "@jenkins-cd/js-builder-jest",
-  "version": "0.0.4",
+  "version": "0.0.5-SNAPSHOT-1",
   "description": "Adds support for running tests with Jest via Jenkins js-builder",
   "main": "dist/js/index.js",
   "scripts": {
