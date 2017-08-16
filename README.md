@@ -2,55 +2,97 @@
 
 Run your tests with Jenkins JS Builder using the "Jest" test runner.
 
-The default location for tests is the `test` folder.
+# Setup
+
+1. Add a gulpfile with the following line:
+
+    `const jsb = require('@jenkins-cd/js-builder');`
+
+2. Install the `@jenkins-cd/js-builder-jest` dependency.
+
+3. Setup npm scripts
+
+    It is convenient to invoke js-builder-jest via npm scripts. Add the following to the "scripts" block in package.json:
+
+    ```
+    "test": "gulp test",
+    "test:fast": "gulp test:fast",
+    "test:debug": "node --debug-brk ./node_modules/.bin/gulp test:debug",
+    ```
+
+# Defaults
+
+The default location for tests is the `test` folder. This can be overridden by calling `builder.tests(<new-path>` in the gulpfile.
+
 The file names need to match the pattern `*-spec.js` or `*-test.js`; the `jsx` extension is also supported.
-The default location can be overridden by calling `builder.tests(<new-path>)`.
 
-## 'test' Task
-
-```
-jjsbuilder --tasks test
-```
+# 'test' Task
 
 Run the tests and produces test and coverage reports.
 
-You can limit the tests that are run via the `test` parameter. This is a pattern that is passed to Jest's [testMatch](https://facebook.github.io/jest/docs/configuration.html#testmatch-array-string) parameter.
+You can limit the tests that are run via the `test` parameter. This is a pattern that is passed to Jest's [testPathPattern](https://facebook.github.io/jest/docs/cli.html#testpathpattern-regex) CLI parameter.
+
+JUnit test reports are stored in `target/jest-reports/` and coverage reports in `target/jest-coverage/`.
+Note that coverage is only measured for .js and .jsx files in the source directories (default: `src`).
+
+# 'test:fast" Task
+
+```
+npm run test:fast
+```
+
+Runs the tests but skips generation of reports and coverage. 
+This is good for local development.
+
+# 'test:debug' Task
+
+```
+npm run test:debug
+```
+
+Runs the tests in debug mode on default port 5858.
+Test execution will be paused until the debugger is attached and execution is resumed.
+
+# Running specific tests
 
 Run a single test.
 
 ```
-jjsbuilder --tasks test -- --test test/src/js/foo/bar/foobar-spec
+npm run test -- --test test/src/js/foo/bar/foobar-spec
 ```
 
 Runs any test with 'calculator' in the path or name.
 
 ```
-jjsbuilder --tasks test -- --test calculator
+npm run test -- --test calculator
 ```
 
 Run any test inside of a 'math' folder.
 
 ```
-jjsbuilder --tasks test -- --test /math/
+npm run test -- --test /math/
 ```
 
-JUnit test reports are stored in `reports/` and coverage reports in `coverage/`.
-Note that coverage is only measured for .js and .jsx files in the source directories (default: `src`).
+# Using custom configuration
 
-## 'test:fast" Task
+## Jest configuration
+
+Jest's command line runner supports custom configuration placed in a ["jest" property in package.json](https://facebook.github.io/jest/docs/configuration.html#content). `js-builder-jest` will automatically add these configuration options if they are defined.
+
+## Jest CLI Options
+
+Jest also supports [useful CLI options](https://facebook.github.io/jest/docs/cli.html#options). These can be used in two ways:
+
+### In npm scripts
 
 ```
-jjsbuilder --tasks test:fast
+"test:fast": "gulp test:fast --updateSnapshot",
 ```
 
-Runs the tests but skips generation of reports and coverage. 
-It also displays an OS notification when tests complete.
-This is good for local development.
+### From command line
 
-## 'test:debug' Task
+```
+npm run test:fast -- --updateSnapshot
+```
 
-Coming soon.
-
-## 'test:watch' Task
-
-Coming later.
+Note the double dash above.
