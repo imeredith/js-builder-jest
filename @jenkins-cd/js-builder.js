@@ -90,14 +90,15 @@ function runJest(jestConfig, cliOptions = {}, excludedConfigKeys = []) {
     var mergedConfig = getMergedConfig(jestConfig, excludedConfigKeys);
 
     logInfo('using jest CLI options = \n' + JSON.stringify(cliOptions, null, '\t'));
-    logInfo('using jest config = \n' + JSON.stringify(mergedConfig, null, '\t'));
-
+   
     // combine the config to the format that gulp-jest expects
     var jestRunnerOptions = Object.assign({}, cliOptions);
     jestRunnerOptions.config = Object.assign({}, mergedConfig);
+  
+    logInfo('using jest config = \n' + JSON.stringify(jestRunnerOptions.config, null, '\t'));
 
     return gulp.src('.')
-        .pipe(jest(jestRunnerOptions))
+        .pipe(jest(jestRunnerOptions.config))
         .on('end', function () {
             logInfo('tests completed successfully!');
         })
